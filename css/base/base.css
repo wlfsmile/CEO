@@ -1,22 +1,32 @@
+@charset "UTF-8";
 *{
 	padding: 0;
 	margin: 0;
+}
+.wrapper{
+    background-color: rgb(35, 42, 58);
+    overflow: hidden;
+    min-height: 100vh;
+}
+/*头部*/
+.topbar{
+    clear: both;
 }
 .navbar-top-links .dropdown .dropdown-name, .navbar-top-links .dropdown .dropdown-close {
     display: inline-block;
     vertical-align: middle;
     margin: 5px 5px;
 }
-.tab-pane{
-	margin-top: -30px;
-}
 .topbar-brand{
+    color: #fff; 
 	float: left;
     height: 50px;
     padding: 15px 37px;
     font-size: 18px;
     line-height: 20px;
     width: 250px;
+    text-align: center;
+    border-bottom: solid rgb(74, 95, 108) 1px;
 }
 .navbar{
     margin: 0;
@@ -34,27 +44,68 @@
 	float: right !important;
 	margin-right: 25px;
 }
-
 .topbar-content {
     overflow: hidden;
     background-color: #ffffff;
     box-shadow: 0 0 6px #e3e2e2;
     border-color: #e3e2e2;
 }
-#page-wrapper {
+
+.content{
+    clear: both;
+}
+/*整个内容页面*/
+.page-wrapper {
     float: left;
     padding: 15px 15px 0px 30px;
-    height: calc(100% - 50px);
+    height: calc(100vh - 50px);
     width: calc(100% - 250px);
-    margin-left: 12px;
-    background-color: #f5f5f5
+    background-color: #f5f5f5;
 }
-.page-header{
+/*左侧导航栏*/
+.sidebar{
+    float: left;
+    width: 250px;
+    padding-top: 28px;
+}
+.side > li > a:focus, .side > li > a:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+.navbar-collapse{
+    padding: 0;
+}
+.nav>li>a {
+    /*padding: 7px 30px 7px 30px ;*/
+    text-align: center;
+}
+.sidebar ul li a {
+    color: white;
+    font-size: 16px;
+    border-left: solid transparent;
+}
+.sidebar .active a{
+    border-left: solid white;
+}
+/*页面主体*/
+/*标题*/
+.page-head{
     color: #333;
+    border-bottom: 1px solid transparent;
     background-color: #f5f5f5;
     border-color: #ddd;
+    font-size: 24px;
+    padding: 10px 30px;
 }
-
+.input-group{
+    margin-top: 5px;
+    width: 200px;
+    height: 10px;
+}
+.form-control{
+    height: 30px;
+    padding:0 5px;
+}
+/*表格*/
 .add-table-border {
     border: 1px solid #eeeeee;
 }
