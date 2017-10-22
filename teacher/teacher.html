@@ -1,4 +1,5 @@
 <script src="../js/common/head.js"></script>
+<link href="./css/teacher.css" rel="stylesheet" type="text/css" />
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,44 +57,47 @@
             	<div class="tab-pane active" id="studentInfo">
             		<div class="page-head">
                         <span>学生信息</span>
-                        <span class="input-group pull-right">
-                            <input type="text" class="form-control">
-                            <span class="input-group-addon btn btn-primary">搜索</span>
-                        </span>
+                        <div class="pull-right clearfix">
+                            <span class="input-group">
+                                <input type="text" class="form-control" placeholder="学号" id="studentNo">
+                                <!-- <span class="input-group-addon btn btn-primary" id="studentSearch">搜索</span> -->
+                            </span>
+                            <span class="input-group ">
+                                <input type="text" class="form-control" placeholder="姓名" id="studentName" >
+                            </span>
+                            <span class="">
+                                <input type="button" class="btn btn-primary" id="studentSearch" value="搜索" >
+                            </span>
+                        </div>
                     </div>
         			<div class="panel-body table-responsive table-responsive">
-        				<table class="table table-striped add-table-border">
-        					<thead>
-        						<tr>
-                                    <th>序号</th>
-        							<th>学号</th>
-        							<th>姓名</th>
-            						<th>职位</th>
-            						<th>班级</th>
-            						<th>操作</th>
-            					</tr>
-            				</thead>
-            				<tbody>
-        						<tr>
-        							<td>1</td>
-        							<td>201521138</td>
-        							<td>吴林霏</td>
-        							<td>CEO</td>
-        							<td>03061502</td>
-                                    <td>
-                                        <a type="button" class="btn btn-sm">指定CEO</a>
-                                    </td>
-            					</tr>
-        					</tbody>
-        				</table>
-            		</div>
-            	</div>
+        				<table id="studentTable" class="table table-striped add-table-border parent-table">
+                        </table>
+                    </div>
+                </div>
+                
             	<div class="tab-pane" id="companyInfo">
+                    <div class="page-head">
+                        <span>公司信息</span>
+                        <div class="pull-right">
+                            <span class="input-group">
+                                <input type="text" class="form-control" placeholder="公司名称" id="companyName">
+                                <!-- <span class="input-group-addon btn btn-primary" id="companySearch">搜索</span> -->
+                            </span>
+                            <span class="">
+                                <input type="button" class="btn btn-primary" id="companySearch" value="搜索" >
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body table-responsive">
+                        <table id="companyTable" class="table table-striped add-table-border parent-table">
+                        </table>
+                    </div>
             	</div>
             </div>
         </div>
     </div>
 </div>
-
+<script src="js/studentInfo.js"></script>
+<script src="js/companyInfo.js"></script>
 <script src="../js/common/foot.js"></script>
-<script src="./js/teacher.js"></script>

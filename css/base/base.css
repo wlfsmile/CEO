@@ -58,8 +58,10 @@
 .page-wrapper {
     float: left;
     padding: 15px 15px 0px 30px;
-    height: calc(100vh - 50px);
-    width: calc(100% - 250px);
+     /* height: calc(100vh - 50px); */
+    min-height: calc(100vh - 50px);
+    width: calc(100% - 250px); 
+    /* height: 1000px; */
     background-color: #f5f5f5;
 }
 /*左侧导航栏*/
@@ -111,4 +113,22 @@
 }
 .table th, .table td {
     text-align: center;
+}
+.seconed-table>td>.child-table,.seconed-table>td>.child-table>tbody>tr{
+    background-color: #eee;
+     font-size: 80%;
+}
+.child-table tr td,#child-table>thead>tr>th{
+    padding: 4px;
+}
+
+/*分页码  */
+.footer-page{
+    text-align: right;
+}
+.pagination{
+    margin: 0;
+}
+.pagination>li>a{
+    margin: 5px;
 }

@@ -8,6 +8,7 @@ document.writeln("<meta http-equiv=\'X-UA-Compatible\' content=\'IE=edge\'>");
 document.writeln("<meta http-equiv=\'X-UA-Compatible\' content=\'IE=9\' />");
 document.writeln("<title>CEO</title>");
 document.writeln("<link href=\'../js/bootstrap/dist/css/bootstrap.css\'  rel=\"stylesheet\" type=\"text/css\" />");
+document.writeln("<link href=\'../js/bootstrap/bootstrap-table/src/bootstrap-table.css\'  rel=\"stylesheet\" type=\"text/css\" />");
 //base.css要放在bootstrap.css后面
 document.writeln("<link href=\'../css/base/base.css\'  rel=\"stylesheet\" type=\"text/css\" />");
 document.writeln("<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->\
@@ -17,5 +18,8 @@ document.writeln("<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elemen
       <script src=\'https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js\'></script>\
     <![endif]-->");
 document.writeln("<script src=\'../js/jquery-1.11.3.min.js\'></script>");
+document.writeln("<script src=\"../js/bootstrap/dist/js/bootstrap.min.js\"></script>");
+document.writeln("<script src=\"../js/bootstrap/bootstrap-table/src/bootstrap-table.js\"></script>");
+document.writeln("<script src=\"../js/bootstrap/bootstrap-table/src/locale/bootstrap-table-zh-CN.js\"></script>");
 document.writeln("</head>");
 document.writeln("<body >");
