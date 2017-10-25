@@ -1,0 +1,20 @@
+.page-head>.input-group {
+    margin: 5px;
+}
+.page-head>.pull-right span{
+    display: inline-block;
+}
+.page-head .form-control{
+    margin-top: -10px;
+    border-radius: 5%;
+}
+.createCompany{
+    margin: 10px;
+}
+.application{
+    width: 50%;
+    margin: 0 auto;
+}
+.application p{
+    margin-top: 50px;
+}

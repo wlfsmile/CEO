@@ -1,0 +1,139 @@
+<!-- 学生端  -->
+<script src="../js/common/head.js"></script>
+<link href="./css/student.css" rel="stylesheet" type="text/css" />
+
+<div class="wrapper">  
+    <!-- 头部 -->
+    <nav class="navbar navbar-static-top topbar">
+    	<div class="navbar-header">
+            <b href="#" class="topbar-brand">
+                CEO-学生端
+            </b>
+    	</div>
+        <div class="topbar-content">
+            <!-- 登录用户信息-->
+            <ul class="nav navbar-top-links topbar-right">
+               <li class="dropdown pull-right">
+                    <a class="dropdown-name">
+                        <span>student</span>
+                    </a>
+                    <span class="vertical">|</span>
+                    <a href="#" class="dropdown-toggle dropdown-close">
+                        <span class="glyphicon glyphicon-off"></span>
+                    </a>
+               </li> 
+            </ul>
+        </div>
+    </nav>
+    <!-- 下部主体 -->
+    <div class="content">
+    <!-- 侧面导航栏 -->
+        <div class="sidebar">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav in side accordion-group" id="side-menu">
+                    <li class="allCompanyInfo-tab active">
+                        <a href="#allCompanyInfo"  data-toggle="tab">
+                            所有公司信息
+                        </a>
+                        <!-- <ul id="collapseOne" class="collapse" style="height: 0px; ">
+                              <a class="accordion-inner" href="#companyInfo" data-toggle="tab">
+                                    <span>分组项1</span>
+                              </a>
+                        </ul> -->
+                    </li>
+                    <li class="joinCompany-tab">
+                        <a href="#joinCompany" data-toggle="tab">加入公司</a>
+                    </li>
+                    <li class="myCompany-tab">
+                        <a href="#myCpmpany" data-toggle="tab">我的公司</a>
+                    </li>
+                </ul>
+            </div>
+        </div>    
+        <!-- 主体 -->
+        <div id="page-wrapper" class="page-wrapper">
+        	<!-- 中间tab主体 -->
+            <div class="tab-content page-main">
+                <!--所有公司  -->
+                <div class="tab-pane active" id="allCompanyInfo">
+                    <!--上部操作栏  -->
+                    <div class="clearfix panel panel-default page-wrapper-head">
+                        <span type="button" class="pull-right btn btn-info createCompany">创建公司</span>
+                    </div>
+                    <div class="panel panel-default">
+                        <!--内容头部  -->
+                        <div class="page-head">
+                            <span>公司信息</span>
+                            <!--搜索框  -->
+                            <div class="pull-right">
+                                <span class="input-group">
+                                    <input type="text" class="form-control" placeholder="公司名称" id="companyName">
+                                </span>
+                                <span class="">
+                                    <input type="button" class="btn btn-primary" id="companySearch" value="搜索" >
+                                </span>
+                            </div>
+                        </div>
+                        <!--主体内容表格  -->
+                        <div class="panel-body table-responsive">
+                            <table id="allCompanyInfo-table" class="table table-striped add-table-border parent-table">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!--加入公司  -->
+                <div class="tab-pane panel panel-default" id="joinCompany">
+                    <div class="page-head">
+                        <span>志愿填写</span>
+                    </div>
+                    <div class="panel-body">
+                        <form class="application">
+                            <p>
+                                <label>第一志愿</label>
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </p>
+                            <p>
+                                <label>第二志愿</label>
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </p>
+                            <p>
+                                <label>第三志愿</label>
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </p>
+                            <p>
+                                <button class="btn btn-primary">提交</button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+                
+                <!--我的公司  -->
+            	<div class="tab-pane panel panel-default" id="myCpmpany">
+                    <!--内容头部  -->
+            		<div class="page-head">
+                        <span>我的公司</span>
+                    </div>
+                    <!--主体内容表格  -->
+        			<div class="panel-body table-responsive table-responsive">
+        				<table id="myCpmpany-table" class="table table-striped add-table-border parent-table">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/allCompany.js"></script>
+<script src="js/myCompany.js"></script>
+<script src="../js/common/foot.js"></script>

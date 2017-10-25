@@ -20,6 +20,7 @@ document.writeln("<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elemen
 document.writeln("<script src=\'../js/jquery-1.11.3.min.js\'></script>");
 document.writeln("<script src=\"../js/bootstrap/dist/js/bootstrap.min.js\"></script>");
 document.writeln("<script src=\"../js/bootstrap/bootstrap-table/src/bootstrap-table.js\"></script>");
+document.writeln("<script src=\"../js/bootstrap/bootbox.min.js\"></script>");
 document.writeln("<script src=\"../js/bootstrap/bootstrap-table/src/locale/bootstrap-table-zh-CN.js\"></script>");
 document.writeln("</head>");
 document.writeln("<body >");

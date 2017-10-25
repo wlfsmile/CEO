@@ -41,10 +41,10 @@
         <div class="sidebar">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav in side" id="side-menu">
-                    <li class="active">
+                    <li class="studentInfo-tab active">
                         <a href="#studentInfo" data-toggle="tab">学生信息</a>
                     </li>
-                    <li>
+                    <li class="companyInfo-tab">
                         <a href="#companyInfo" data-toggle="tab">公司信息</a>
                     </li>
                 </ul>
@@ -53,30 +53,35 @@
         <!-- 主体 -->
         <div id="page-wrapper" class="page-wrapper">
         	<!-- 中间tab主体 -->
-            <div class="panel panel-default tab-content page-main">
+            <div class=" tab-content page-main">
             	<div class="tab-pane active" id="studentInfo">
-            		<div class="page-head">
-                        <span>学生信息</span>
-                        <div class="pull-right clearfix">
-                            <span class="input-group">
-                                <input type="text" class="form-control" placeholder="学号" id="studentNo">
-                                <!-- <span class="input-group-addon btn btn-primary" id="studentSearch">搜索</span> -->
-                            </span>
-                            <span class="input-group ">
-                                <input type="text" class="form-control" placeholder="姓名" id="studentName" >
-                            </span>
-                            <span class="">
-                                <input type="button" class="btn btn-primary" id="studentSearch" value="搜索" >
-                            </span>
-                        </div>
+                    <!--上部操作栏  -->
+                    <div class="clearfix panel panel-default page-wrapper-head">
+                        <span type="button" class="pull-right btn btn-info excelStudentScore">导入学生成绩</span>
                     </div>
-        			<div class="panel-body table-responsive table-responsive">
-        				<table id="studentTable" class="table table-striped add-table-border parent-table">
-                        </table>
+                    <div class="panel panel-default">
+                        <div class="page-head">
+                            <span>学生信息</span>
+                            <div class="pull-right clearfix">
+                                <span class="input-group">
+                                    <input type="text" class="form-control" placeholder="学号" id="studentNo">
+                                </span>
+                                <span class="input-group ">
+                                    <input type="text" class="form-control" placeholder="姓名" id="studentName" >
+                                </span>
+                                <span class="">
+                                    <input type="button" class="btn btn-primary" id="studentSearch" value="搜索" >
+                                </span>
+                            </div>
+                        </div>
+                        <div class="panel-body table-responsive table-responsive">
+                            <table id="studentTable" class="table table-striped add-table-border parent-table">
+                            </table>
+                        </div>
                     </div>
                 </div>
                 
-            	<div class="tab-pane" id="companyInfo">
+            	<div class="tab-pane panel panel-default" id="companyInfo">
                     <div class="page-head">
                         <span>公司信息</span>
                         <div class="pull-right">
@@ -98,6 +103,9 @@
         </div>
     </div>
 </div>
+</div>
+
+
 <script src="js/studentInfo.js"></script>
 <script src="js/companyInfo.js"></script>
 <script src="../js/common/foot.js"></script>
