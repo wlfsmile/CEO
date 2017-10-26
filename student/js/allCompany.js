@@ -1,16 +1,25 @@
+//所有公司
 $(function(){
-    var teacherId = 'liujin'; //从session获取teacherId
+
     student_getCompanyInfo();
+
     $('.allCompanyInfo-tab').click(function(){
         student_getCompanyInfo();
     })
+
+    //点击创建公司
+    $('.createCompany').click(function(){
+        student_createCompany
+    })
+
     //查询公司
     $('#companySearch').click(function(){
 		//学号姓名
 		var companyName = $('#companyName').val();
 		
 		$('#allCompanyInfo-table').bootstrapTable('refresh',{url:'/companies?name='+companyName})
-	})
+    })
+    
     //设置表格 采用bootstrap table
     function student_getCompanyInfo(){
         $('#allCompanyInfo-table').bootstrapTable({
@@ -23,7 +32,7 @@ $(function(){
             pageNumber:1, //当前第几页
             sidePagination: "server", //表示服务端请求 
             dataField: "object",
-            pageSize: 2,
+            pageSize: 10,
             queryParams:queryParams,
             pageList: [10, 25, 50, 100],
             columns:[{
@@ -50,7 +59,7 @@ $(function(){
                     "object": row   //数据  key与前面的dataField一致
                 };
             },
-            //公司成员信息
+            //公司成员信息（父子表）
             onExpandRow:function(index,row,$detail){
                 var cur_table = $detail.html('<table></table>').find('table');
                 var companyId = row.id;
@@ -98,5 +107,11 @@ $(function(){
                 orderType:'id'
             }
         }
+    }
+
+
+    //创建公司
+    function student_createCompany(){
+        
     }
 })

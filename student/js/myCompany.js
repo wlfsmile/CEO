@@ -1,13 +1,14 @@
+// 我的公司
 $(function(){
-
-    var studentId = 1;
+    var companyId = 1;
+    //var userId = '';
     $('.myCompany-tab').click(function(){
         student_myCompany();
     })
     //我的公司
     function student_myCompany(){
         $.ajax({
-            url: '/companies/'+studentId,
+            url: '/companies/'+companyId,
             type: 'get',
             dataType: 'json',
             success: function(data){

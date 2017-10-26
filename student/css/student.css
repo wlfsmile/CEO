@@ -18,3 +18,8 @@
 .application p{
     margin-top: 50px;
 }
+.applyWarning{
+    display: inline-block;
+    margin-top: 5px;
+    color: red;
+}

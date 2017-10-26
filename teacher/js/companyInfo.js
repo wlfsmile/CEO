@@ -45,7 +45,7 @@ $(function(){
                     filed: 'setting',
                     title: '操作',
                     formatter: function(value,row,index){
-                        return '<a type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#teacher_setCompanyScore" onclick="teacher_setCompanyScore(\''+row.userId+'\');">给公司打分</a>';
+                        return '<a type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#teacher_setCompanyScore" onclick="teacher_setCompanyScore(\''+row.id+'\',\''+row.name+'\');">给公司打分</a>';
                     }
             }],
             //调整后台返回数据为bootstrap table所接受的
@@ -81,12 +81,6 @@ $(function(){
                     },{
                         field: 'score',
                         title: '总分'
-                    // },{
-                    //     filed: 'setting',
-                    //     title: '操作',
-                    //     formatter: function(value,row,index){
-                    //         return '<a type="button" class="btn btn-xs btn-info" >打分</a>&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" class="btn btn-xs btn-warning">设置职位</a>';
-                    //     }
                     }],
                     responseHandler:function(res){
                         var row = res.data.object;
@@ -108,15 +102,25 @@ $(function(){
 })
 
 //老师给公司打分
-function teacher_setCompanyScore(id){
+function teacher_setCompanyScore(id,name){
     bootbox.prompt({
         size:'small',
-        title: '给'+ id +'公司分数为',
+        title: '给'+ name +'公司分数为',
         callback: function(result){
             //result为填写框里面的分数值
-            $.ajax({
-                url: '',
-            })
+            if(result){
+                $.ajax({
+                    url: '/companies/'+id,
+                    type:'PUT',
+                    data:{
+                       score: result
+                    },
+                    success: function(data){
+                        console.log(data);
+                        $('#CompanyTable').bootstrapTable('refresh',{url:'/companies'})
+                    }
+                })
+            }
         }
     })
 }
