@@ -1,15 +1,18 @@
 //成员加入公司
 $(function(){
     var companyData = '';
-    //var userId = '2014210840';
+    var num = ['第一志愿','第二志愿','第三志愿','第四志愿','第五志愿','第六志愿'];
+    var numStr = '';
+    var btnStr = '<p><span class="btn btn-primary subApply">提交</span></p>'
 
     $('.joinCompany-tab').click(function(){
         joinCompany();
+        applyCompany();   
     })
     //请求所有公司
-    function joinCompany(){
+    function applyCompany(){
         $.ajax({
-            url: '/companies',
+            url: '/companies?pageSize='+10,
             type: 'get',
             dataType: 'json',
             success: function(data){
@@ -25,64 +28,78 @@ $(function(){
         })
     }
 
-    //判断选择重复
-    $('.application select').change(function(){
-        var flag = false;
-        var optionIndex = $(this).find('option:selected').index();
-        $('.application select').each(function(){
-            var onValue = $(this).val();
-            if($('.application select option[value="'+onValue+'"]:selected').size()>1){
-                flag = true;
-            }
-        })
-        if(flag){
-            $(this).siblings('.applyWarning').html('该公司已经是你的其他志愿选项，不可重复,请重新选择');
-        }else{
-            $('.applyWarning').html('');
+    function joinCompany(){
+        //填充志愿表单
+        for(var i=0;i<num.length;i++){
+            numStr +=   '<p>'+
+                            '<label>'+ num[i] +'</label>'+
+                            '<select class="form-control">'+
+                            '</select>'+
+                            '<span class="applyWarning"></span>'+
+                        '</p>';
         }
-    });
+        numStr = numStr+btnStr;
+        $('.application').html(numStr);
 
-    //提交按钮 申请公司
-    $('.subApply').click(function(){
-        var len = $('.application select').length;
-        var btnFlag = true;
-        $('.applyWarning').each(function(){
-            if($(this).html() !== ''){
-                btnFlag = false;
-            }
-        })
-        var arr = [];
-        for(var i=0;i<len;i++){
-            var arrList= {
-                    "userId":userId,
-                    "companyId":$('.application select').eq(i).val(),
-                    "createTime": "2017-10-21 15:53:50",
-                    "modifiedTime": "2017-10-26 16:53:36",
-                    "grade": (i+1)
-                };
-            arr.push(arrList);
-        }
-        //转化数组为json格式
-        arr = JSON.stringify(arr);
-        //判断填写志愿是否有误
-        if(btnFlag){
-            $.ajax({
-                url: '/applications',
-                type: 'post',
-                contentType: 'application/json',
-                data: arr,
-                dataType: 'json',
-                success: function(data){
-                    if(data.status == 1){
-                        bootbbox.alert('恭喜你，申报成功！请耐心等待');
-                    }else{
-                        bootbox.alert(data.message);
-                    }
+        //判断选择重复
+        $('.application select').change(function(){
+            var flag = false;
+            var optionIndex = $(this).find('option:selected').index();
+            $('.application select').each(function(){
+                var onValue = $(this).val();
+                if($('.application select option[value="'+onValue+'"]:selected').size()>1){
+                    flag = true;
                 }
             })
-        }else{
-            bootbox.alert('志愿填写有误，请检查后重新填写');
-        }
-    })
-        
+            if(flag){
+                $(this).siblings('.applyWarning').html('该公司已经是你的其他志愿选项，不可重复,请重新选择');
+            }else{
+                $('.applyWarning').html('');
+            }
+        });
+
+        //提交按钮 申请公司
+        $('.subApply').click(function(){
+            //alert(1);
+            var len = $('.application select').length;
+            var btnFlag = true;
+            $('.applyWarning').each(function(){
+                if($(this).html() !== ''){
+                    btnFlag = false;
+                }
+            })
+            var arr = [];
+            for(var i=0;i<len;i++){
+                var arrList= {
+                        "userId":userId,
+                        "companyId":$('.application select').eq(i).val(),
+                        "createTime": "2017-10-21 15:53:50",
+                        "modifiedTime": "2017-10-26 16:53:36",
+                        "grade": (i+1)
+                    };
+                arr.push(arrList);
+            }
+            //转化数组为json格式
+            arr = JSON.stringify(arr);
+            //判断填写志愿是否有误
+            if(btnFlag){
+                $.ajax({
+                    url: '/applications',
+                    type: 'post',
+                    contentType: 'application/json',
+                    data: arr,
+                    dataType: 'json',
+                    success: function(data){
+                        if(data.status == 1){
+                            bootbox.alert('恭喜你，申报成功！请耐心等待');
+                        }else{
+                            bootbox.alert(data.message);
+                        }
+                    }
+                })
+            }else{
+                bootbox.alert('志愿填写有误，请检查后重新填写');
+            }
+        })
+    }   
 })

@@ -7,11 +7,6 @@ $(function(){
         student_getCompanyInfo();
     })
 
-    //点击创建公司
-    $('.createCompany').click(function(){
-        student_createCompany
-    })
-
     //查询公司
     $('#companySearch').click(function(){
 		//学号姓名
@@ -84,12 +79,12 @@ $(function(){
                     },{
                         field: 'score',
                         title: '总分'
-                    },{
-                        filed: 'setting',
-                        title: '操作',
-                        formatter: function(value,row){
-                            return '<a type="button" class="btn btn-xs btn-info">打分</a>&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" class="btn btn-xs btn-warning">设置职位</a>';
-                        }
+                    // },{
+                    //     filed: 'setting',
+                    //     title: '操作',
+                    //     formatter: function(value,row){
+                    //         return '<a type="button" class="btn btn-xs btn-info">打分</a>&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" class="btn btn-xs btn-warning">设置职位</a>';
+                    //     }
                     }],
                     responseHandler:function(res){
                         var row = res.data.object;
@@ -107,11 +102,5 @@ $(function(){
                 orderType:'id'
             }
         }
-    }
-
-
-    //创建公司
-    function student_createCompany(){
-        
     }
 })
