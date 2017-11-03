@@ -1,6 +1,5 @@
 //所有公司
 $(function(){
-
     student_getCompanyInfo();
 
     $('.allCompanyInfo-tab').click(function(){
@@ -12,13 +11,13 @@ $(function(){
 		//学号姓名
 		var companyName = $('#companyName').val();
 		
-		$('#allCompanyInfo-table').bootstrapTable('refresh',{url:'/companies?name='+companyName})
+		$('#allCompanyInfo-table').bootstrapTable('refresh',{url:'/ceo/companies?name='+companyName})
     })
     
     //设置表格 采用bootstrap table
     function student_getCompanyInfo(){
         $('#allCompanyInfo-table').bootstrapTable({
-            url:'/companies',
+            url:'/ceo/companies',
             type:'GET',
             striped: true, 
             pagination: true,  //是否分页
@@ -59,7 +58,7 @@ $(function(){
                 var cur_table = $detail.html('<table></table>').find('table');
                 var companyId = row.id;
                 $(cur_table).bootstrapTable({
-                    url:'/usercompanies?companyId='+row.id,
+                    url:'/ceo/usercompanies?companyId='+row.id,
                     type:'GET', 
                     columns:[{
                         field: 'userId',

@@ -1,6 +1,30 @@
 <!-- 学生端  -->
-<script src="../js/common/head.js"></script>
-<link href="./css/student.css" rel="stylesheet" type="text/css" />
+<!-- <script src="../js/common/head.js"></script>
+<link href="./css/student.css" rel="stylesheet" type="text/css" /> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport,user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>CEO</title>
+    <link href="../js/bootstrap/dist/css/bootstrap.min.css"  rel="stylesheet" type="text/css" />
+    <link href="../js/bootstrap/bootstrap-table/src/bootstrap-table.css"  rel="stylesheet" type="text/css" />
+    <link href="../css/base/base.css"  rel="stylesheet" type="text/css" />
+    <link href="./css/student.css" rel="stylesheet" type="text/css" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>\
+       <script src=\'https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js\'></script>\
+       <script src=\'https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js\'></script>\
+    <![endif]-->
+    <script src="../js/jquery-1.11.3.min.js"></script>
+    <script src="../js/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap/bootstrap-table/src/bootstrap-table.js"></script>
+    <script src="../js/bootstrap/bootbox.min.js"></script>
+    <script src="../js/bootstrap/bootstrap-table/src/locale/bootstrap-table-zh-CN.js"></script>
+</head>
+<body>   
 
 <div class="wrapper">  
     <!-- 头部 -->
@@ -18,7 +42,7 @@
                         <span>student</span>
                     </a>
                     <span class="vertical">|</span>
-                    <a href="#" class="dropdown-toggle dropdown-close">
+                    <a href="#" class="dropdown-toggle dropdown-close" onclick="logout()">
                         <span class="glyphicon glyphicon-off"></span>
                     </a>
                </li> 
@@ -81,9 +105,9 @@
                     <div class="panel-body">
                         <form class="application">
                             
-                            <p>
+                            <!-- <p>
                                 <span class="btn btn-primary subApply">提交</span>
-                            </p>
+                            </p> -->
                         </form>
                     </div>
                 </div>
@@ -98,6 +122,12 @@
                         <!--内容头部  -->
                         <div class="page-head">
                             <span>我的公司</span>
+                            <!-- 锁定成员 -->
+                            <div class="pull-right">
+                                <span class="">
+                                    <input type="button" class="btn btn-primary" id="companySure" value="锁定公司成员" >
+                                </span>
+                            </div>
                         </div>
                         <!--主体内容表格  -->
                         <div class="panel-body table-responsive table-responsive">
@@ -105,13 +135,28 @@
                             </table>
                         </div>
                     </div>
+                    <!--CEO查看申请信息  -->
+                    <div class="tab-pane" id="ceoCompanyInfo">
+                        <div class="panel panel-default">
+                            <!--内容头部  -->
+                            <div class="page-head">
+                                <span>所有申请成员</span>
+                            </div>
+                            <!--主体内容表格  -->
+                           <div class="panel-body table-responsive">
+                                <table id="ceoCompanyInfo-table" class="table table-striped add-table-border parent-table">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
- <script src="js/student.js"></script> 
+<script src="../js/common/base.js"></script> 
 <script src="js/allCompany.js"></script>
 <script src="js/joinCompany.js"></script>
 <script src="js/myCompany.js"></script>

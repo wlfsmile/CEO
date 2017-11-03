@@ -3,7 +3,7 @@ $(function () {
 		toggle: false
 	})
 	//请求默认页信息
-	var teacherId = 'liujin'; //从session获取teacherId
+	var teacherId = userId; //从session获取teacherId
 	teacher_getStudentInfo();
 
 	$('.studentInfo-tab').click(function(){
@@ -15,13 +15,13 @@ $(function () {
 		var studentNo = $('#studentNo').val();
 		var studentName = $('#studentName').val();
 		
-		$('#studentTable').bootstrapTable('refresh',{url:'/teacherclasses?teacherId='+teacherId+'&userId='+studentNo+'&userName='+studentName});
+		$('#studentTable').bootstrapTable('refresh',{url:'/ceo/teacherclasses?teacherId='+teacherId+'&userId='+studentNo+'&userName='+studentName});
 	})
 
 	function teacher_getStudentInfo(){
 	//设置表格 彩印bootstrap table插件
 		$('#studentTable').bootstrapTable({
-			url:'/teacherclasses?teacherId='+teacherId,
+			url:'/ceo/teacherclasses?teacherId='+teacherId,
 			striped: true, 
 			pagination: true,  //是否分页
 			//showRefresh: true, //是否显示刷新功能
@@ -89,7 +89,7 @@ function setCeo(id,type,userName,teacherId){
 					bootbox.alert('该学生已经是CEO了，不能重复指定');
 				}else{
 					$.ajax({
-						url: '/studentclasses/'+id,
+						url: '/ceo/studentclasses/'+id,
 						type: 'put',
 						data:{
 							type: 'CEO'
@@ -97,7 +97,7 @@ function setCeo(id,type,userName,teacherId){
 						success: function(data){
 							if(data.status == 1){
 								bootbox.alert('成功');
-								$('#studentTable').bootstrapTable('refresh',{url:'/teacherclasses?teacherId='+teacherId})
+								$('#studentTable').bootstrapTable('refresh',{url:'/ceo/teacherclasses?teacherId='+teacherId})
 							}else{
 								bootbox.alert('失败');
 							}

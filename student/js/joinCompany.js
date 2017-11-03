@@ -2,7 +2,6 @@
 $(function(){
     var companyData = '';
     var num = ['第一志愿','第二志愿','第三志愿','第四志愿','第五志愿','第六志愿'];
-    var numStr = '';
     var btnStr = '<p><span class="btn btn-primary subApply">提交</span></p>'
 
     $('.joinCompany-tab').click(function(){
@@ -12,7 +11,7 @@ $(function(){
     //请求所有公司
     function applyCompany(){
         $.ajax({
-            url: '/companies?pageSize='+10,
+            url: '/ceo/companies?pageSize='+10,
             type: 'get',
             dataType: 'json',
             success: function(data){
@@ -29,6 +28,7 @@ $(function(){
     }
 
     function joinCompany(){
+        var numStr = '';
         //填充志愿表单
         for(var i=0;i<num.length;i++){
             numStr +=   '<p>'+
@@ -81,10 +81,11 @@ $(function(){
             }
             //转化数组为json格式
             arr = JSON.stringify(arr);
+            // console.log(arr);
             //判断填写志愿是否有误
             if(btnFlag){
                 $.ajax({
-                    url: '/applications',
+                    url: '/ceo/applications',
                     type: 'post',
                     contentType: 'application/json',
                     data: arr,

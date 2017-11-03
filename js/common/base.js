@@ -12,25 +12,34 @@ $.ajax({
             userId = data.data.userId;
             userName = data.data.userName;
             $('.dropdown-name').html(userName);
-            //请求type之类的信息
+            //请求type(CEO)之类的信息
             $.ajax({
                 url: '/ceo/usercompanies?userId='+userId,
                 type: 'get',
+                async: false,
                 success: function(data){
                     if(data.status == 1){
-                        type = data.data.object[0].position;
-                        companyId = data.data.object[0].companyId;
+                        console.log()
+                        //console.log(data.data.object[0].position);
+                        if(data.data.totalNumber == 0){
+                            $('.page-wrapper-head').remove();
+                            $('#ceoCompanyInfo').remove();
+                            $('#companySure').remove();
+                        }else{
+                            type = data.data.object[0].position;
+                            companyId = data.data.object[0].companyId;
+                        }
+                        if(type !== 'CEO'){
+                            $('.page-wrapper-head').remove();
+                            $('#ceoCompanyInfo').remove();
+                            $('#companySure').remove();
+                        }else{
+                            $('.joinCompany-tab').remove();
+                            $('#joinCompany').remove();
+                        }
                     }
                 }
             })
-        }
-        if(type !== 'CEO'){
-            $('.page-wrapper-head').remove();
-            $('#ceoCompanyInfo').remove();
-            $('#companySure').remove();
-        }else{
-            $('.joinCompany-tab').remove();
-            $('#joinCompany').remove();
         }
     }
 })

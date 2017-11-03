@@ -8,13 +8,13 @@ $(function(){
 		//学号姓名
 		var companyName = $('#companyName').val();
 		
-		$('#companyTable').bootstrapTable('refresh',{url:'/companies?name='+companyName})
+		$('#companyTable').bootstrapTable('refresh',{url:'/ceo/companies?name='+companyName});
     })
     
     //设置表格 采用bootstrap table
     function teacher_getCompanyInfo(){
         $('#companyTable').bootstrapTable({
-            url:'/companies',
+            url:'/ceo/companies',
             type:'GET',
             striped: true, 
             pagination: true,  //是否分页
@@ -61,7 +61,7 @@ $(function(){
                 var cur_table = $detail.html('<table></table>').find('table');
                 var companyId = row.id;
                 $(cur_table).bootstrapTable({
-                    url:'/usercompanies?companyId='+row.id,
+                    url:'/ceo/usercompanies?companyId='+row.id,
                     type:'GET', 
                     columns:[{
                         field: 'userId',
@@ -110,14 +110,17 @@ function teacher_setCompanyScore(id,name){
             //result为填写框里面的分数值
             if(result){
                 $.ajax({
-                    url: '/companies/'+id,
+                    url: '/ceo/companies/'+id,
                     type:'PUT',
                     data:{
                        score: result
                     },
                     success: function(data){
-                        console.log(data);
-                        $('#CompanyTable').bootstrapTable('refresh',{url:'/companies'})
+                        if(data.status == 1){
+                            bootbox.alert('成功');
+                            $('#companyTable').bootstrapTable('refresh',{url:'/ceo/companies'});
+                        }
+                        //console.log(data);  
                     }
                 })
             }
