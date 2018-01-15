@@ -15,13 +15,52 @@ $(function () {
 		var studentNo = $('#studentNo').val();
 		var studentName = $('#studentName').val();
 		
-		$('#studentTable').bootstrapTable('refresh',{url:'/ceo/teacherclasses?teacherId='+teacherId+'&userId='+studentNo+'&userName='+studentName});
+		$('#studentTable').bootstrapTable('refresh',{url:'/ceo/studentclasses?teacherId='+teacherId+'&userId='+studentNo+'&userName='+studentName});
+	})
+
+	//点击导入学生成绩
+	$('.excelStudentScore').click(function(){
+		bootbox.dialog({
+			title: '选择导入的Excel文件夹',
+			message: '<input type="file" onchange="importExcel(this)" class="chooseExcel"" />',
+			buttons: {  
+                Cancel: {  
+                    label: "取消",  
+                    className: "btn-default",  
+                    callback: function () {  
+                        alert("Cancel");  
+                    }  
+				}, 
+				OK: {  
+                    label: "确认上传",  
+					className: "btn-primary",
+					type:'file',  
+                    callback: function () {  
+						$('.chooseExcel').change();
+						console.log(excelStr);
+						$.ajax({
+							url: '/ceo/studentclasses',
+							type: 'put',
+							contentType: 'application/json',
+							data: excelStr,
+							success: function(data){
+								bootbox.alert(data.message);
+							},
+							error: function(){
+								bootbox.alert('请求失败');
+							}
+						})
+                        //alert("OK");  
+                    }  
+                }  
+            }  
+		})
 	})
 
 	function teacher_getStudentInfo(){
 	//设置表格 彩印bootstrap table插件
 		$('#studentTable').bootstrapTable({
-			url:'/ceo/teacherclasses?teacherId='+teacherId,
+			url:'/ceo/studentclasses?teacherId='+teacherId,
 			striped: true, 
 			pagination: true,  //是否分页
 			//showRefresh: true, //是否显示刷新功能
@@ -55,7 +94,7 @@ $(function () {
 					title: '操作',
 					formatter:function(value,row){
 						return '<a type="button" class="btn btn-xs btn-info" onclick="setCeo(\''+row.id+'\',\''+row.type+'\',\''+row.userName+'\',\''+teacherId+'\');">指定CEO</a>';
-				}
+					}
 			}],
 			//调整后台返回数据为bootstrap table所接受的
 			responseHandler:function(res){
@@ -97,7 +136,7 @@ function setCeo(id,type,userName,teacherId){
 						success: function(data){
 							if(data.status == 1){
 								bootbox.alert('成功');
-								$('#studentTable').bootstrapTable('refresh',{url:'/ceo/teacherclasses?teacherId='+teacherId})
+								$('#studentTable').bootstrapTable('refresh',{url:'/ceo/studentclasses?teacherId='+teacherId})
 							}else{
 								bootbox.alert('失败');
 							}

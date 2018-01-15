@@ -17,10 +17,12 @@
        <script src=\'https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js\'></script>\
     <![endif]-->
     <script src="../js/jquery-1.11.3.min.js"></script>
+    <!-- <script src="http://oss.sheetjs.com/js-xlsx/xlsx.full.min.js"></script> -->
     <script src="../js/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../js/bootstrap/bootstrap-table/src/bootstrap-table.js"></script>
     <script src="../js/bootstrap/bootbox.min.js"></script>
     <script src="../js/bootstrap/bootstrap-table/src/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="../js/xlsx.full.min.js"></script> 
 </head>
 <body>   
 
@@ -69,7 +71,11 @@
             	<div class="tab-pane active" id="studentInfo">
                     <!--上部操作栏  -->
                     <div class="clearfix panel panel-default page-wrapper-head">
-                        <span type="button" class="pull-right btn btn-info excelStudentScore">导入学生成绩</span>
+                        <!-- <span class="pull-right btn btn-info fileinput-button">
+                            <span>导入学生成绩</span>
+                            <input type="file" onchange="importExcel(this)" class="excelStudentScore" />
+                        </span> -->
+                        <input type="button" class="pull-right btn btn-info excelStudentScore" value="导入学生成绩" />
                     </div>
                     <div class="panel panel-default">
                         <div class="page-head">
@@ -117,6 +123,7 @@
 </div>
 </div>
 
+<script src="js/excel.js"></script> 
 <script src="../js/common/base.js"></script> 
 <script src="js/studentInfo.js"></script>
 <script src="js/companyInfo.js"></script>

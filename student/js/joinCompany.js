@@ -11,7 +11,7 @@ $(function(){
     //请求所有公司
     function applyCompany(){
         $.ajax({
-            url: '/ceo/companies?pageSize='+10,
+            url: '/ceo/companies?studentId='+userId+'&pageSize='+100,
             type: 'get',
             dataType: 'json',
             success: function(data){
@@ -28,6 +28,7 @@ $(function(){
     }
 
     function joinCompany(){
+        
         var numStr = '';
         //填充志愿表单
         for(var i=0;i<num.length;i++){
@@ -60,35 +61,47 @@ $(function(){
 
         //提交按钮 申请公司
         $('.subApply').click(function(){
-            //alert(1);
-            var len = $('.application select').length;
+            //一共有几个志愿，组成数组
+            var selectLen = $('.application select').length;
+            var selectArr = [];
+            for(var i=0;i<selectLen;i++){
+                selectArr.push($('.application select').eq(i).val());
+            }
+            //只选择有效的申请
+            var selectVals = selectArr.filter(function(selectVal){
+                return selectVal != null;
+            })
+            var len = selectVals.length;
+            //console.log(selectVals);
+            var arr = [];
+            for(var i=0;i<len;i++){
+                var arrList= {
+                        "userId":userId,
+                        "companyId":selectVals[i], 
+                        //"createTime": "2017-10-21 15:53:50",
+                        //"modifiedTime": "2017-10-26 16:53:36",
+                        "grade": (i+1)
+                    };
+                arr.push(arrList);
+            }
+    
+            //转化数组为json格式
+            //console.log(arr);
+            var list = {"list":arr};
+            list = JSON.stringify(list);
+            //判断填写志愿是否有误
             var btnFlag = true;
             $('.applyWarning').each(function(){
                 if($(this).html() !== ''){
                     btnFlag = false;
                 }
             })
-            var arr = [];
-            for(var i=0;i<len;i++){
-                var arrList= {
-                        "userId":userId,
-                        "companyId":$('.application select').eq(i).val(),
-                        "createTime": "2017-10-21 15:53:50",
-                        "modifiedTime": "2017-10-26 16:53:36",
-                        "grade": (i+1)
-                    };
-                arr.push(arrList);
-            }
-            //转化数组为json格式
-            arr = JSON.stringify(arr);
-            // console.log(arr);
-            //判断填写志愿是否有误
             if(btnFlag){
                 $.ajax({
                     url: '/ceo/applications',
                     type: 'post',
                     contentType: 'application/json',
-                    data: arr,
+                    data: list,
                     dataType: 'json',
                     success: function(data){
                         if(data.status == 1){

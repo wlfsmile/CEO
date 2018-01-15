@@ -1,5 +1,5 @@
 $(function(){
-    var teacherId = 'liujin'; //从session获取teacherId
+    var teacherId = userId; //从session获取teacherId
     $('.companyInfo-tab').click(function(){
         teacher_getCompanyInfo();
     })
@@ -95,7 +95,8 @@ $(function(){
                 order:'DESC',
                 pageSize : params.limit, //每一页的数据行数，默认是上面设置的10(pageSize)
                 currentPage : params.offset/params.limit+1, //当前页面,默认是上面设置的1(pageNumber)
-                orderType:'id'
+                orderType:'id',
+                teacherId: teacherId
             }
         }
     }

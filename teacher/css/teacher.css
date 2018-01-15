@@ -11,3 +11,17 @@
 .excelStudentScore{
     margin: 10px;
 }
+/* .fileinput-button {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    margin: 10px;
+}
+
+.fileinput-button input{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+} */

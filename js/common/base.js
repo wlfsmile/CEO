@@ -14,23 +14,25 @@ $.ajax({
             $('.dropdown-name').html(userName);
             //请求type(CEO)之类的信息
             $.ajax({
-                url: '/ceo/usercompanies?userId='+userId,
+                url: '/ceo/studentclasses/getStudentClass?userId='+userId,
                 type: 'get',
                 async: false,
                 success: function(data){
                     if(data.status == 1){
-                        console.log()
+                        //console.log(data);
                         //console.log(data.data.object[0].position);
-                        if(data.data.totalNumber == 0){
-                            $('.page-wrapper-head').remove();
-                            $('#ceoCompanyInfo').remove();
-                            $('#companySure').remove();
-                        }else{
-                            type = data.data.object[0].position;
-                            companyId = data.data.object[0].companyId;
-                        }
+                        // if(data.data.totalNumber == 0){
+                        //     $('.page-wrapper-head').remove();
+                        //     $('#ceoCompanyInfo').remove();
+                        //     $('#companySure').remove();
+                        // }else{
+                        //     type = data.data.object[0].position;
+                        //     companyId = data.data.object[0].companyId;
+                        // }
+                        type = data.data.type;
+                        console.log(type);
                         if(type !== 'CEO'){
-                            $('.page-wrapper-head').remove();
+                            $('.student-page-wrapper-head').remove();
                             $('#ceoCompanyInfo').remove();
                             $('#companySure').remove();
                         }else{

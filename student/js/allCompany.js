@@ -1,5 +1,7 @@
 //所有公司
 $(function(){
+
+    var teacherId = userId;
     student_getCompanyInfo();
 
     $('.allCompanyInfo-tab').click(function(){
@@ -37,13 +39,10 @@ $(function(){
                     title: '公司创建人'
                 },{
                     field: 'number',
-                    title: '班级'
-                },{
-                    field: 'isScored',
-                    title: '已得分'
+                    title: '公司成员数'
                 },{
                     field: 'score',
-                    title: '总分'
+                    title: '公司得分'
             }],
             //调整后台返回数据为bootstrap table所接受的
             responseHandler:function(res){
@@ -70,11 +69,8 @@ $(function(){
                         field: 'cls',
                         title: '班级'
                     },{
-                        field: 'number',
-                        title: '排名'
-                    },{
-                        field: 'isScored',
-                        title: '已得分'
+                        field: 'position',
+                        title: '职位'
                     },{
                         field: 'score',
                         title: '总分'
@@ -98,7 +94,8 @@ $(function(){
                 order:'DESC',
                 pageSize : params.limit, //每一页的数据行数，默认是上面设置的10(pageSize)
                 currentPage : params.offset/params.limit+1, //当前页面,默认是上面设置的1(pageNumber)
-                orderType:'id'
+                orderType:'id',
+                studentId: userId
             }
         }
     }

@@ -1,22 +1,22 @@
 //我的公司
 $(function(){
-    //var companyId = '';
+    var companyId = '';
     $('.myCompany-tab').click(function(){
         $.ajax({
             url: '/ceo/usercompanies?userId='+userId,
             type: 'GET',
-            //async: false,
+            async: false,
             success: function(data){
                 if(data.status == 1){
                     if(data.data.totalNumber == 0){
                         if(type == 'CEO'){
                             $('#myCompany-table').html('您还未创建公司，请尽快创建公司......');
                         }else{
-                            $('#myCompany-table').html('您还未加入公司，请尽快加入公司......');
+                            $('#myCompany-table').html('您还未加入公司/还未被公司录取，请尽快加入公司......');
                         }
                     }else{
-                        //companyId = data.data.object[0].companyId;
-                        $('.page-wrapper-head').remove();
+                        companyId = data.data.object[0].companyId;
+                        $('.student-page-wrapper-head').remove();
                         student_myCompany(); 
                         allApply();
                     }
@@ -47,13 +47,10 @@ $(function(){
                     title: '姓名'
                 },{
                     field: 'number',
-                    title: '成员人数'
+                    title: '成员成员数'
                 },{
                     field: 'score',
                     title: '公司得分'
-                },{
-                    field: 'score',
-                    title: '总分'
             }],
             //调整后台返回数据为bootstrap table所接受的
             responseHandler:function(res){
@@ -90,19 +87,23 @@ $(function(){
                         title: '操作',
                         formatter: function(value,row){
                             //console.log(row);
-                            if(row.userId == userId || row.isScored == 0){
-                                return '';
-                            }else if(type != 'CEO'){
-                                return '<a type="button" class="btn btn-xs btn-info" onClick="setScore(\''+row.id+'\',\''+row.userName+'\',\''+row.companyId+'\')">打分</a>';
-                            }else{
-                                return '<a type="button" class="btn btn-xs btn-info" onClick="setScore(\''+row.id+'\',\''+row.userName+'\',\''+row.companyId+'\')">打分</a>&nbsp;&nbsp;&nbsp;&nbsp;\
-                                        <a type="button" class="btn btn-xs btn-warning" onClick="setPosition(\''+row.id+'\',\''+row.userName+'\',\''+row.companyId+'\');">设置职位</a>';
+                            if(row.userId == userId){
+                                return '<a type="button" class="btn btn-xs btn-info" onClick="setScore(\''+row.companyId+'\',\''+row.id+'\')">给所有成员打分</a>';
                             }
+                            else if(type == 'CEO'){
+                                return '<a type="button" class="btn btn-xs btn-warning" onClick="setPosition(\''+row.id+'\',\''+row.userName+'\',\''+row.companyId+'\')">设置职位</a>';
+                            }else{
+                                return '';
+                            }
+                            // else{
+                            //     return ('<a type="button" class="btn btn-xs btn-info" onClick="setScore(\''+row.id+'\',\''+row.userName+'\',\''+row.companyId+'\')">打分</a>&nbsp;&nbsp;&nbsp;&nbsp;\
+                            //             <a type="button" class="btn btn-xs btn-warning" onClick="setPosition(\''+row.id+'\',\''+row.userName+'\',\''+row.companyId+'\');">设置职位</a>');
+                            // }
                         }
                     }],
                     responseHandler:function(res){
-                        var row = res.data.object;
-                        return row;
+                        var value = res.data.object;
+                        return value;
                     }
                 })
             }
@@ -146,20 +147,20 @@ $(function(){
             pageSize: 10,
             pageList: [10, 25, 50, 100],
             columns:[{
-                    field: 'id',
+                    field: 'userName',
                     title: '姓名'
+                },{
+                    field: 'userId',
+                    title: '学号'
                 },{
                     field: 'grade',
                     title: '志愿级别'
                 },{
-                    field: 'calculatedGrade',
-                    title: '人数'
-                },{
                     field: 'setting',
                     title: '操作',
                     formatter: function(value,row){
-                        return '<a type="button" class="btn btn-xs btn-info" onClick="ceoAdmin(\''+row.id+'\',\''+companyId+'\');">录取</a>&nbsp;&nbsp;&nbsp;&nbsp;\
-                                <a type="button" class="btn btn-xs btn-danger" onClick="ceoRefuse(\''+row.id+'\',\''+companyId+'\');">拒绝</a>'
+                        return '<a type="button" class="btn btn-xs btn-info" onClick="ceoAdmin(\''+row.userName+'\',\''+row.id+'\',\''+companyId+'\');">录取</a>&nbsp;&nbsp;&nbsp;&nbsp;\
+                                <a type="button" class="btn btn-xs btn-danger" onClick="ceoRefuse(\''+row.userName+'\',\''+row.id+'\',\''+companyId+'\');">拒绝</a>'
                     }
             }],
             //调整后台返回数据为bootstrap table所接受的
@@ -187,7 +188,7 @@ $(function(){
                     "className" : "btn-sm btn-info",
                     "callback": function() {
                         $.ajax({
-                            url: '/companies',
+                            url: '/ceo/companies',
                             type: 'POST',
                             data: {
                                 name: $('.companyName').val(),
@@ -196,8 +197,10 @@ $(function(){
                             success: function(data){
                                 if(data.status == 1){
                                     bootbox.alert(data.message);
-                                    $('#myCompany-table').html('');
-                                    student_myCompany();
+                                    //$('#myCompany-table').html('');
+                                    $('#myCompany-table').bootstrapTable('refresh',{url:'/ceo/usercompanies?userId='+userId});
+                                    $('.student-page-wrapper-head').remove();
+                                    //student_myCompany();
                                 }else{
                                     bootbox.alert(data.message);
                                 }
@@ -215,10 +218,10 @@ $(function(){
 })
 
 //点击录取成员
-function ceoAdmin(id,companyId){
+function ceoAdmin(userName,id,companyId){
     bootbox.confirm({
         size:'small',
-        message:'你确定要录取'+id+'为公司成员？',
+        message:'你确定要录取'+userName+'为公司成员？',
         callback: function(result){
             if(result){
                 $.ajax({
@@ -228,12 +231,13 @@ function ceoAdmin(id,companyId){
                         if(data.status == 1){
                             bootbox.alert(data.message);
                             $('#ceoCompanyInfo-table').bootstrapTable('refresh',{url:'/ceo/applications?companyId='+companyId});
+                            $('#myCompany-table').bootstrapTable('refresh',{url:'/ceo/usercompanies?userId='+userId});
                         }else{
                             bootbox.alert(data.message);
                         }
                     },
                     error: function(){
-                        console.log('error');
+                        bootbox.alert('error');
                     }
                 })           
             }
@@ -242,11 +246,11 @@ function ceoAdmin(id,companyId){
     
 }
 //点击拒绝录取成员
-function ceoRefuse(id,companyId){
+function ceoRefuse(userName,id,companyId){
     bootbox.confirm({
         size:'small',
         title: '成员信息',
-        message:'你确定要拒绝'+id+'为公司成员？',
+        message:'你确定要拒绝'+userName+'为公司成员？',
         callback: function(result){
             if(result){
                 $.ajax({
@@ -270,31 +274,77 @@ function ceoRefuse(id,companyId){
 }
 
 //成员打分
-function setScore(id,name,companyId){
-    bootbox.prompt({
-        size:'small',
-        title: '请输入你为'+ name +'所设置的分数',
-        //message: '请输入你为'+ name +'所设置的分数',
-        callback: function(result){
-            if(result){
-                $.ajax({
-                    url: '/ceo/usercompanies/'+id,
-                    type: 'put',
-                    data: {
-                        score: result
-                    },
-                    success: function(data){
-                        if(data.status == 1){
-                            bootbox.alert('设置成功');
-                            $('#companyMember-table').bootstrapTable('refresh',{url:'/ceo/usercompanies?companyId='+companyId})
-                        }
+function setScore(companyId,id){
+    var userData = '';
+    $.ajax({
+        url: '/ceo/usercompanies?companyId='+companyId,
+        type: 'get',
+        async: false,
+        success: function(data){
+            if(data.status == 1){
+                userData = data.data.object;
+                var formData = '';
+                for(var i=0;i<data.data.totalNumber;i++){
+                    if(userData[i].userId == userId){
+                        formData += '';
+                    }else{
+                        formData += '<div class="form-group">'+
+                                    '<label>'+ userData[i].userName +'</label>'+
+                                    '<input type="text" name="score" class="form-control userScore" id="s'+userData[i].userId+'" placeholder="分数">'+
+                                '</div>';
                     }
-                })
+                    
+                }
+                $('.modal-body').html(formData);
             }
         }
+    }).then(function(){
+        $('#myModal').modal();
+    })
+    
+    // var userData = '';
+    // $.ajax({
+    //     url: '/ceo/usercompanies?companyId='+companyId,
+    //     type: 'get',
+    //     async: false,
+    //     success: function(data){
+    //         if(data.status == 1){
+    //             userData = data.data;
+    //         }
+    //     }
+    // })
+
+    //确认打分
+    $('#btn_submit').click(function(){
+        var arr = [{"id":id}];
+        for(let i=0;i<userData.totalNumber;i++){
+            if(userData.object[i].userId != userId){
+                var arrList = {
+                    "id": userData.object[i].id,
+                    "score": $("#s"+userData.object[i].userId).val()
+                };
+                arr.push(arrList);
+            }
+        }
+        var list = {"list":arr};
+        dataList = JSON.stringify(list);
+        $.ajax({
+            url: '/ceo/usercompanies',
+            type: 'PUT',
+            contentType: 'application/json',
+            data: dataList,
+            dataType: 'json',
+            success: function(data){
+                if(data.status == 1){
+                    bootbox.alert('打分完成!');
+                }else{
+                    bootbox.alert(data.message);
+                }
+            }
+        }) 
     })
 }
-
+//
 function setPosition(id,name,companyId){
     bootbox.prompt({
         size:'small',
@@ -310,7 +360,7 @@ function setPosition(id,name,companyId){
                         score: 100
                     },
                     success: function(data){
-                        console.log(data);
+                        // console.log(data);
                         if(data.status == 1){
                             bootbox.alert('设置成功');
                             $('#companyMember-table').bootstrapTable('refresh',{url:'/ceo/usercompanies?companyId='+companyId})
